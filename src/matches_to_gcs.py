@@ -8,12 +8,13 @@ from datetime import timedelta
 @task(retries=3)
 def fetch(dataset_url: str) -> pd.DataFrame:
     """Read csv from web"""
-    df = pd.read_csv(dataset_url, on_bad_lines= 'skip')
+    df = pd.read_csv(dataset_url)
     return df
 
 @task()
 def clean(df: pd.DataFrame) -> pd.DataFrame:
     """Placeholder for any cleaning needing to be done."""
+    df['tourney_date'] = pd.to_datetime(df['tourney_date'], format = '%Y%m%d')
     return df
 
 @task()
