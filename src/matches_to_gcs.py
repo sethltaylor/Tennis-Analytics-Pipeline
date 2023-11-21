@@ -37,7 +37,7 @@ def write_gcs(path: Path) -> None:
 @flow()
 def etl_web_to_gcs(tour, subgroup, year) -> None:
     """The main ETL function"""
-    dataset_file = f"{tour}_matches{subgroup}_{year}.csv" #Challengers and futures should be appended with an underscore
+    dataset_file = f"{tour}_matches{subgroup}_{year}.csv" #Challengers and futures should be have an underscore appended at the start of {subgroup}
     dataset_url = f"https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/{dataset_file}"
 
     df = fetch(dataset_url)
@@ -47,7 +47,7 @@ def etl_web_to_gcs(tour, subgroup, year) -> None:
 
 @flow()
 def etl_matches_flow(
-    tour: str = "atp",subgroup: str = "", years: list[int] = [2022,2023], 
+    tour: str = "atp",subgroup: str = "", years: list[int] = [2023], 
 ):
     for year in years:
         etl_web_to_gcs(tour, subgroup, year)
