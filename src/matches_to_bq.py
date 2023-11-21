@@ -7,8 +7,8 @@ from prefect_gcp import GcpCredentials
 @task(retries=3)
 def extract_from_gcs(tour: str, subgroup: str, year: int) -> Path:
     """Download trip data from GCS"""
-    gcs_path = f"data/matches/{tour}_matches{subgroup}_{year}"
-    gcs_block = GcsBucket.load("nyc-taxi-datalake")
+    gcs_path = f"data/matches/{tour}_matches{subgroup}_{year}.parquet"
+    gcs_block = GcsBucket.load("tennis-bucket")
     gcs_block.get_directory(from_path=gcs_path, local_path=f"../data/")
     return Path(f"{gcs_path}")
 

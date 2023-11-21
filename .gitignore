@@ -50,3 +50,4 @@ ipython_config.py
 
 .prefectignore
 src/etl_matches_flow-deployment.yaml
+src/etl_bq_matches_flow-deployment.yaml
