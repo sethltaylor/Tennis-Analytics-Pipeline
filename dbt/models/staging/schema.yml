@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: staging
+    database: tennis-analysis-405301
+    schema: tennis_data
+
+    tables:
+      - name: atp_tour
+      - name: challengers
