@@ -5,17 +5,15 @@ from prefect_gcp.cloud_storage import GcsBucket
 from prefect_gcp import GcpCredentials
 
 @task(retries=3)
-def extract_from_gcs(tour: str, subgroup: str, year: int) -> Path:
-    """Download trip data from GCS"""
-    gcs_path = f"data/matches/{tour}_matches{subgroup}_{year}.parquet"
-    gcs_block = GcsBucket.load("tennis-bucket")
-    gcs_block.get_directory(from_path=gcs_path, local_path=f"../data/")
-    return Path(f"{gcs_path}")
+def fetch(dataset_url: str) -> pd.DataFrame:
+    """Read csv from web"""
+    df = pd.read_csv(dataset_url)
+    return df
 
 @task()
-def transform(path: Path) -> pd.DataFrame:
-    """Transform parquet to df"""
-    df = pd.read_parquet(path)
+def clean(df: pd.DataFrame) -> pd.DataFrame:
+    """Converting tourney_date to datetime"""
+    df['tourney_date'] = pd.to_datetime(df['tourney_date'], format = '%Y%m%d')
     return df
 
 @task()
@@ -31,14 +29,15 @@ def write_bq(df: pd.DataFrame,dest_tab: str) -> None:
         chunksize=500_000,
         if_exists="append",
     )
-    return len(df)
 
 @flow()
 def etl_gcs_to_bq(tour:str, subgroup:str, year:int, dest_tab:str):
     """Main ETL flow to load data into Big Query"""
+    dataset_file = f"{tour}_matches{subgroup}_{year}" #Challengers and futures should be have an underscore appended at the start of {subgroup}
+    dataset_url = f"https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/{dataset_file}.csv"
 
-    path = extract_from_gcs(tour, subgroup, year)
-    df = transform(path)
+    df = fetch(dataset_url)
+    df = clean(df)
     write_bq(df,dest_tab)
     
 @flow()
