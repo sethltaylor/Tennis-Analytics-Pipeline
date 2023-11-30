@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: dim_countries
+    description: >
+      List of countires by ioc code. 
+  - name: fact_matches
+    description: >
+      The table contains matches from both ATP tour-level and Challengers tournaments. 
+      Each record corresponds to a unique match identified by match id. 
+    columns:
+      - name: match_id
+        tests: 
+          - not_null
+          - unique
+      - name: winner_ioc
+        tests:
+          - relationships:
+              to: ref('dim_countries')
+              field: ioc
+      - name: loser_ioc
+        tests:
+          - relationships:
+              to: ref('dim_countries')
+              field: ioc
+      - name: w_bp_saved
+        tests: 
+          - not_negative:
+              severity: warn
+      - name: w_bp_faced
+        tests: 
+          - not_negative:
+              severity: warn
+      - name: l_bp_saved
+        tests: 
+          - not_negative:
+              severity: warn
+      - name: l_bp_faced
+        tests: 
+          - not_negative:
+              severity: warn
+              
+              

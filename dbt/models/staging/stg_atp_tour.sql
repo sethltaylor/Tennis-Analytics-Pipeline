@@ -43,13 +43,13 @@ select
     loser_ioc,
     loser_age,
     loser_rank,
-    loser_rank_points
+    loser_rank_points,
 
     --match information
     score,
     best_of,
     round,
-    minutes
+    minutes,
 
     --winner stats
     w_ace,
