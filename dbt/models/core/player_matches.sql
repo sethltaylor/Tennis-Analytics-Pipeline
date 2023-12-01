@@ -7,6 +7,7 @@ with matches as (
 
 select 
 ---Winner tournament info
+    match_id,
     tourney_name,
     tourney_date,
     surface,
@@ -45,6 +46,7 @@ from matches
 union all
 select
 --- loser info
+    match_id,
     tourney_name,
     tourney_date,
     surface,
