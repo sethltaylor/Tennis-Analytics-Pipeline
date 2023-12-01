@@ -37,7 +37,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   tennis_analytics:
-    # Applies to all files under models/example/
+    # Applies to all files under models
     staging:
       materialized: view
     
