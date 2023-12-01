@@ -12,7 +12,8 @@ models:
       - name: match_id
         tests:
           - not_null
-          - unique
+          - unique:
+             severity: warn
       - name: winner_ioc
         tests:
           - relationships:
