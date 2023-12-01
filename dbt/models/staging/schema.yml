@@ -1,0 +1,81 @@
+version: 2
+
+sources:
+  - name: staging
+    database: tennis-analysis-405301
+    schema: tennis_data
+
+    tables:
+      - name: atp_tour
+      - name: challengers
+
+models:
+  - name: stg_atp_tour
+    description: >
+      All ATP Tour level matches from 1968 to 2023. Each row is a unique match. Data collected by Jeff Sackman here: https://github.com/JeffSackmann/tennis_atp
+    columns:
+      - name: match_id
+        description: Primary key. Concatenation of tourney_id and match_num
+      - name: tourney_name
+        description: Name of tournament
+      - name: tourney_date
+        description: date of tournament
+      - name: surface
+        description: Type of surface match was played on (e.g., hard court, grass, clay, etc.)
+      - name: draw_size
+        description: Number of players in the draw for the tournament
+      - name: tourney_level
+        description: Code for the tournament level (e.g., grand slam)
+      - name: tourney_level_description
+        description: Description for tourney_level
+      - name: match_num
+        description: Number identifying the match within a tournament. Not neccessarily unique across tournaments.
+      - name: winner_id
+        description: unique id of player that was the winner
+      - name: winner_seed
+        description: Seed that winner entered tournament at
+      - name: winner_hand
+        description: Handeness of winner (right vs. left)
+      - name: winner_ht
+        description: Height of winner
+      - name: winner_ioc
+        description: IOC code for country of winner
+      - name: winner_rank 
+        description: ATP ranking of winner
+      - name: winner_rank_points
+        description: Number of ATP ranking points of winner
+
+  - name: stg_challengers
+    description: >
+      All Challenger matches from 1978 to 2023. Each row is a unique match. Data collected by Jeff Sackman here: https://github.com/JeffSackmann/tennis_atp
+    columns:
+      - name: match_id
+        description: Primary key. Concatenation of tourney_id and match_num
+      - name: tourney_name
+        description: Name of tournament
+      - name: tourney_date
+        description: date of tournament
+      - name: surface
+        description: Type of surface match was played on (e.g., hard court, grass, clay, etc.)
+      - name: draw_size
+        description: Number of players in the draw for the tournament
+      - name: tourney_level
+        description: Code for the tournament level (e.g., grand slam)
+      - name: tourney_level_description
+        description: Description for tourney_level
+      - name: match_num
+        description: Number identifying the match within a tournament. Not neccessarily unique across tournaments.
+      - name: winner_id
+        description: unique id of player that was the winner
+      - name: winner_seed
+        description: Seed that winner entered tournament at
+      - name: winner_hand
+        description: Handeness of winner (right vs. left)
+      - name: winner_ht
+        description: Height of winner
+      - name: winner_ioc
+        description: IOC code for country of winner
+      - name: winner_rank 
+        description: ATP ranking of winner
+      - name: winner_rank_points
+        description: Number of ATP ranking points of winner

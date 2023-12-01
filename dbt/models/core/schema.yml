@@ -1,0 +1,96 @@
+version: 2
+
+models:
+  - name: dim_countries
+    description: >
+      List of countires by ioc code.
+  - name: fact_matches
+    description: >
+      This table contains matches from both ATP tour-level and Challengers tournaments. 
+      Each record corresponds to a unique match identified by match id.
+    columns:
+      - name: match_id
+        tests:
+          - not_null
+          - unique
+      - name: winner_ioc
+        tests:
+          - relationships:
+              to: ref('dim_countries')
+              field: ioc
+      - name: loser_ioc
+        tests:
+          - relationships:
+              to: ref('dim_countries')
+              field: ioc
+      - name: w_bp_saved
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              severity: warn
+      - name: w_bp_faced
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              severity: warn
+      - name: l_bp_saved
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              severity: warn
+      - name: l_bp_faced
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              severity: warn
+
+  - name: player_matches
+    description: >
+      This table is a unioned table of winner columns and loser columns in fact_matches to make rows unique to a player's match within a tournament.
+  - name: player_matches_win_percent
+    description: >
+      This table includes a player's rolling count of match wins and win percent over their career.
+    columns:
+      - name: score
+        description: Score of match
+      - name: best_of
+        description: Best of N sets of a match, usually 3 or 5. 
+      - name: round
+        description: Round of the tournament the match was played in (e.g., semi-finals)
+      - name: minutes
+        description: Duration of match in minutes
+      - name: player_id
+        description: ID of the player
+      - name: player_seed
+        description: Seed of the player on tournament entry
+      - name: player_entry
+        description: Type of entry that the player made into tournament. Usually used for something unique like a lucky loser. 
+      - name: player_entry_description
+        description: Long form description of player_entry
+      - name: ace 
+        description: Number of aces by player in match
+      - name: df
+        description: Number of double faults by player in match
+      - name: serve_points
+        description: Number of points won on serve in the match
+      - name: first_in
+        description: Number of first serves made during match
+      - name: first_won
+        description: Number of first serves that scored a point during match
+      - name: second_won
+        description: Number of second serves that scored a point during match
+      - name: service_games
+        description: Number of service games the player had during the match
+      - name: bp_saved
+        description: Number of break points saved during match
+      - name: bp_faced
+        description: Number of break points faced during match
+      - name: is_winner
+        description: Denotes whether player was the winner of the match
+      - name: total_matches
+        description: Running count of total matches played by a player in their career at the time of the match
+      - name: total_wins
+        description: Running count of total wins in a player's career at the time of the match
+      - name: win_percentage
+        description: Lifetime win percentage at the time of the match
+
