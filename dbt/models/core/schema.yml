@@ -94,4 +94,13 @@ models:
         description: Running count of total wins in a player's career at the time of the match
       - name: win_percentage
         description: Lifetime win percentage at the time of the match
+        
+  - name: bagels_by_year
+    description: >
+     This table show the number of bagels (sets won '6-0') delivered in games where players one and games where players lost.
+  - name: deciding_set_win_percent_by_year
+    description: >
+     This table shows the percentage of matches that a player has won where the match came down to the deciding set. 
+     Players must have played more than 25 lifetime matches to be considered in this metric. 
+
 
