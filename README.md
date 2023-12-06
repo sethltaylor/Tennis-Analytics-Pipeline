@@ -31,6 +31,7 @@ This project relies on Jeff Sackman's [tennis match data](https://github.com/Jef
 - Prefect is used to orchestrate the extraction and loading of data by creating flows to extract data from the tennis data repository, do some minor cleaning (conversion of strings to timestamps), and load the data to Cloud Storage and BigQuery. Flows are scheduled to be executed on a weekly basis.
 - DBT is used to transform the data. Staging models are created that ensure correct typing of variables and to create unique identifiers for the ATP main tour and Challengers matches. Core models union main tour and Challengers tables into a single table of all matches. Aggregated tables are created from this core model to be utilized in dashboarding.
   - Tests are used to ensure integrity of the data, including tests for lack of nulls in unique identifiers, uniqueness of identifiers, referential integrity, and acceptable values for numeric data.
+![lineage-graph](images/lineage_graph.png)
 - Looker Studio is used to visualize the transformed data. 
 
 ## Reporting
