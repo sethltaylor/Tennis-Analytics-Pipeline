@@ -25,5 +25,6 @@ This project relies on Jeff Sackman's [tennis match data](https://github.com/Jef
 - [Looker Studio](https://lookerstudio.google.com/overview): Creating the analytics dashboard.
 
 ## Data Pipeline
+![pipeline-digram](images/pipeline_diagram.png)
 
 ## Reporting
