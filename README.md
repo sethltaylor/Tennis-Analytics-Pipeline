@@ -1,7 +1,7 @@
 # Tennis Analytics Pipeline
 - [Introduction](#introduction)
 - [Data Source](#data-source)
-- [Technology Stack](#technology-stack)
+- [Tech Stack](#tech-stack)
 - [Data Pipeline](#data-pipeline)
 - [Reporting](#reporting)
 
@@ -16,7 +16,7 @@ This project builds a batch extract, load, and transform (ELT) pipeline to gathe
 ## Data Source
 This project relies on Jeff Sackman's [tennis match data](https://github.com/JeffSackmann/tennis_atp) repos, which are updated on roughly a weekly basis during the tennis season. The pipeline extracts ATP main tour level data from 1968 through the current season and Challengers data from 1978 through the current season. While match outcomes are available for all years, match statistics (e.g., number of aces, number of break points, etc.) are generally only avaiable from the mid-1990s onwards. 
 
-## Technology Stack
+## Tech Stack
 - [Python/Pandas](https://pandas.pydata.org/): Extraction and loading of raw data from data source to the data lake and data warehouse.
 - [Google Cloud Platform (GCP)](https://cloud.google.com/): Storage of raw files in a Google Cloud Storage bucket and utilizng BigQuery as our data warehouse.
 - [Terraform](https://www.terraform.io/): Creating our GCP infrastructure as code.
@@ -25,5 +25,12 @@ This project relies on Jeff Sackman's [tennis match data](https://github.com/Jef
 - [Looker Studio](https://lookerstudio.google.com/overview): Creating the analytics dashboard.
 
 ## Data Pipeline
+![pipeline-digram](images/pipeline_diagram.png)
+
+- Terraform is used to create our GCP infrastructure as code, including a Cloud Storage bucket to serve as our data lake and three BigQuery datasets: a dataset for untransformed data, a staging dataset for intermediate views and tables, and a production dataset to store final tables after transformation in dbt.
+- Prefect is used to orchestrate the extraction and loading of data by creating flows to extract data from the tennis data repository, do some minor cleaning (conversion of strings to timestamps), and load the data to Cloud Storage and BigQuery. Flows are scheduled to be executed on a weekly basis.
+- DBT is used to transform the data. Staging models are created that ensure correct typing of variables and to create unique identifiers for the ATP main tour and Challengers matches. Core models union main tour and Challengers tables into a single table of all matches. Aggregated tables are created from this core model to be utilized in dashboarding.
+  - Tests are used to ensure integrity of the data, including tests for lack of nulls in unique identifiers, uniqueness of identifiers, referential integrity, and acceptable values for numeric data.
+- Looker Studio is used to visualize the transformed data. 
 
 ## Reporting
