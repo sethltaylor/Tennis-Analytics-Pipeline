@@ -10,7 +10,6 @@ This project builds a batch extract, load, and transform (ELT) pipeline to gathe
 
 - What players are performing best in the current season?
 - What players on the Challengers Tour are likely candidates as the next "up and coming" players?
-- What players perform best under pressure?
 - What players have served up the most bagels over their career? 
 
 ## Data Source
