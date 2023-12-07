@@ -41,5 +41,10 @@ The final analytics dashboards is available here:
 
 A selection of pages from the dashboard are included below:
 
+Page 1:
+
 ![tennis-analytics-dashboard-1](images/Tennis_Analytics_Dashboard-1.png)
+
+Page 2:
+
 ![tennis-analytics-dashboard-2](images/Tennis_Analytics_Dashboard-2.png)
