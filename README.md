@@ -35,3 +35,11 @@ This project relies on Jeff Sackman's [tennis match data](https://github.com/Jef
 - Looker Studio is used to visualize the transformed data. 
 
 ## Reporting
+The final analytics dashboards is available here:
+
+[Tennis Analytics Dashboard](https://lookerstudio.google.com/reporting/faf90ed4-8bda-40dd-9a1b-cdd4466e6d49)
+
+A selection of pages from the dashboard are included below:
+
+![tennis-analytics-dashboard-1](images/Tennis_Analytics_Dashboard-1.png)
+![tennis-analytics-dashboard-2](images/Tennis_Analytics_Dashboard-2.png)
